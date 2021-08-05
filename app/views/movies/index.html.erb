@@ -17,27 +17,14 @@
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-    
-
-            <th>Title</th>
-            <th>Video url</th>
-            
-          <th></th>
-        
+       <th>Title</th>
       </tr>
     </thead>
 
     <tbody>
       <% @movies.each do |movie| %>
         <%= content_tag :tr, id: dom_id(movie), class: dom_class(movie) do %>
-          
-
-                      <td><%= movie.title %></td>
-                      <td><%= movie.video_url %></td>
-          
-          
-            <td><%= link_to 'Show', movie %></td>
-          
+          <td><%= link_to movie.title , movie %></td>
         <% end %>
       <% end %>
     </tbody>

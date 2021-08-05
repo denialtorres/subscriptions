@@ -15,5 +15,7 @@
   <% if user_signed_in? && current_user.subscribed? %>
     <dt>Video url:</dt>
     <dd><%= @movie.video_url %></dd>
+  <% else %>
+    <%= link_to "Subscribe to Watch", pricing_path, class:'btn btn-primary' %>
   <% end %>
 </dl>
