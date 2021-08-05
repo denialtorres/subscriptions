@@ -8,3 +8,12 @@ class PaymentIncomplete < StandardError
     @payment_intent = payment_intent
   end
 end
+
+StripeEvent.signing_secret = ENV['STRIPE_SIGNING_SECRET'] || Rails.application.credentials.stripe[:signing_secret]
+
+StripeEvent.configure do |events|
+  events.subscribe 'customer.subscription.updated', SubscriptionUpdatedWebhook.new
+end
+
+
+# STRIPE_SIGNING_SECRET=whsec_z6MwgAHWRuHzyYBjHCMnlkHgktXQIxBa rails s

@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount StripeEvent::Engine, at: '/webhooks/stripe'
+
   resources :movies
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'

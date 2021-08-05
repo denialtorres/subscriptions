@@ -66,6 +66,7 @@ function setupStripe() {
 
   const form = document.querySelector("#payment-form");
   let paymentIntentId = form.dataset.paymentIntent;
+  let setupIntentId = form.dataset.setupIntent;
 
   if (paymentIntentId) {
     if (form.dataset.status == "requires_action") {
