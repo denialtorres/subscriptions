@@ -82,25 +82,22 @@ function setupStripe() {
     /// Complete a payment intent
     // Updating a card or subscribing with a trial (using a setupintent)
     // Subscriging with no trial
-    payment_data.payment_method_data.type = "card";
-    stripe
-      .createPaymentMethod(payment_data.payment_method_data)
-      .then((result) => {
-        if (result.error) {
-          displayError.textContent = result.error.message;
-        } else {
-          addHiddenField(form, "payment_method_id", result.paymentMethod.id);
-          form.submit();
-        }
-      });
+    data.payment_method_data.type = "card";
+    stripe.createPaymentMethod(data.payment_method_data).then((result) => {
+      if (result.error) {
+        displayError.textContent = result.error.message;
+      } else {
+        addHiddenField(form, "payment_method_id", result.paymentMethod.id);
+        form.submit();
+      }
+    });
   });
 }
 
 function addHiddenField(form, name, value) {
-  let hiddenInput = document.createElment("input");
-  hiddenInput.setAttribute("type", "hidden");
-  hiddenInput.setAttribute("name", name);
-  hiddenInput.setAttribute("value", value);
-
-  form.appendChild(hiddenInput);
+  let input = document.createElement("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("name", name);
+  input.setAttribute("value", value);
+  form.appendChild(input);
 }
