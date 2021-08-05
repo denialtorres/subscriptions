@@ -2,7 +2,7 @@ class Subscription < ApplicationRecord
   belongs_to :user
 
   def active?
-    ["trialing". "active"].include?(status) && (ends_at.nil? || on_grace_period? || on_trial?)
+    ["trialing", "active"].include?(status) && (ends_at.nil? || on_grace_period? || on_trial?)
   end
 
   def on_grace_period?

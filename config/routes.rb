@@ -17,6 +17,7 @@ end
 
   resource :pricing, controller: :pricing
   resource :subscription, controller: :subscription
+  resources :payments
 
 
   root to: 'home#index'
