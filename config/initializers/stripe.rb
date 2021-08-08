@@ -16,6 +16,7 @@ StripeEvent.configure do |events|
   events.subscribe 'charge.refunded', ChargeRefundedWebhook.new
   events.subscribe 'customer.subscription.updated', SubscriptionUpdatedWebhook.new
   events.subscribe 'customer.subscription.deleted', SubscriptionDeletedWebhook.new
+  events.subscribe 'invoice.payment_action_required', PaymentActionRequiredWebhook.new
 end
 
 
