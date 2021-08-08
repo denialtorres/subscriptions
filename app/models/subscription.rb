@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Subscription < ApplicationRecord
   belongs_to :user
 
   def active?
-    ["trialing", "active"].include?(status) && (ends_at.nil? || on_grace_period? || on_trial?)
+    %w[trialing active].include?(status) && (ends_at.nil? || on_grace_period? || on_trial?)
   end
 
   def on_grace_period?
@@ -18,6 +20,23 @@ class Subscription < ApplicationRecord
   end
 
   def has_incomplete_payment?
-    ["past_due", "incomplete"].include?(status)
+    %w[past_due incomplete].include?(status)
+  end
+
+  def swap(plan)
+    stripe_sub = stripe_subscription
+    subscription = Stripe::Subscription.update(stripe_id,
+                                               cancel_at_period_end: false,
+                                               items: [
+                                                 {
+                                                   id: stripe_subscription.items.data[0].id,
+                                                   plan: plan
+                                                 }
+                                               ])
+    update(stripe_plan: plan, ends_at: nil)
+  end
+
+  def stripe_subscription
+    Stripe::Subscription.retrieve(stripe_id)
   end
 end
