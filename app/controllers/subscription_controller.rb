@@ -2,8 +2,11 @@ class SubscriptionController < ApplicationController
   before_action :authenticate_user!
   before_action :set_plan, only: [:new, :create, :update]
 
-  def new
+  def show
+    @subscription = current_user.subscription
+  end
 
+  def new
   end
 
   def create
