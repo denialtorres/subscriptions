@@ -29,6 +29,16 @@ class SubscriptionController < ApplicationController
     redirect_to subscription_path, notice: "You have sucessfully change plans"
   end
 
+  def destroy
+    current_user.subscription.cancel
+    redirect_to subscription_path, notice: 'Your Subscription has been canceled'
+  end
+
+  def resume
+    current_user.subscription.resume
+    redirect_to subscription_path, notice: "Your subscription has been resumed."
+  end
+
   private
   def set_plan
     @plan = Plan.find_by(id: params[:plan_id])
