@@ -23,6 +23,7 @@ gem 'redis', '~> 4.0'
 
 gem 'stripe', '~> 5.37'
 gem 'stripe_event', '~> 2.3', '>= 2.3.1'
+gem 'receipts'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

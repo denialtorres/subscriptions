@@ -50,7 +50,7 @@
       <td><%= charge.created_at.to_date.to_s(:long) %></td>
       <td><%= charge.card_brand %> ending in <%= charge.card_last4 %></td>
       <td><%= formatted_amount charge.amount %></td>
-      <td><%= link_to "Download", charge_path(charge, format: pdf), target: _blank %> </td>
+      <td><%= link_to "Download", charge_path(charge, format: :pdf), target: :blank %> </td>
     </tr>
     <% end %>
   </tbody>
