@@ -1,5 +1,4 @@
-Stripe.api_key = Rails.application.credentials.stripe[:private_key]
-
+Stripe.api_key = "sk_test_51JL1YiAQK64ZnDfYWcA38VzkYD08j0dm151rQLjJGn08EMxlTnVo5fS5iEjcN6caEWLzYy0xtjvnPsKPXRcw4iCo00Lg14vTKp"
 
 class PaymentIncomplete < StandardError
   attr_reader :payment_intent
@@ -9,7 +8,7 @@ class PaymentIncomplete < StandardError
   end
 end
 
-StripeEvent.signing_secret = ENV['STRIPE_SIGNING_SECRET'] || Rails.application.credentials.stripe[:signing_secret]
+StripeEvent.signing_secret = 'whsec_z6MwgAHWRuHzyYBjHCMnlkHgktXQIxBa'
 
 StripeEvent.configure do |events|
   events.subscribe 'charge.succeeded', ChargeSucceededWebhook.new
