@@ -20,11 +20,11 @@ class User < ApplicationRecord
   end
 
   def subscribe(plan, options={})
-    stripe_customer if !stripe_id
+    stripe_customer if !stripe_id?
 
     args = {
       customer: stripe_id,
-      items: [{plan: plan}],
+      items: [{ plan: plan }],
       expand: ['latest_invoice.payment_intent'],
       off_session: true,
     }.merge(options)
@@ -37,12 +37,12 @@ class User < ApplicationRecord
       stripe_id: sub.id,
       stripe_plan: plan,
       status: sub.status,
-      trial_ends_at: (sub.trial_end ? Time.at(sub.trial.trial_end) : nil),
-      ends_at: nil
+      trial_ends_at: (sub.trial_end ? Time.at(sub.trial_end) : nil),
+      ends_at: nil,
     )
 
     if sub.status == "incomplete" && ["requires_action", "requires_payment_method"].include?(sub.latest_invoice.payment_intent.status)
-      raise PaymentIncomplete.new(sub.latest_invoice.payment_intent), "Subscription Requires authentication"
+      raise PaymentIncomplete.new(sub.latest_invoice.payment_intent), "Subscription requires authentication"
     end
 
     subscription
